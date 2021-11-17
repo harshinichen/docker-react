@@ -1,0 +1,22 @@
+version: '3.8'
+services: 
+  web: 
+    #stdin_open: true
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev    # context option specifies where we want the files and folders to be pulled from to build an image 
+    ports: 
+      - "3000:3000"
+    volumes:
+      - /home/node/app/node_modules
+      - .:/home/node/app
+
+  tests: 
+    #stdin_open: true
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev    # context option specifies where we want the files and folders to be pulled from to build an image 
+    volumes:
+      - /home/node/app/node_modules
+      - .:/home/node/app
+    command: ["npm", "run", "test"] # to override the command inside the dockerfile
