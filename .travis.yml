@@ -1,0 +1,10 @@
+language: generic 
+sudo: required # any time we make use of docker, we need superuser permissions
+services:
+  - docker # tells travis CI that we need a copy of docker ready to go
+
+before_install: # series of commands that gets executed before the tests are run
+  - docker build -t harshinichen/docker-react -f Dockerfile.dev
+
+script:
+  - docker run -e CI=true harshinichen/docker-react npm run test
